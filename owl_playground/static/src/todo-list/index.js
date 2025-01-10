@@ -2,38 +2,40 @@
 
 import { Component, useState } from "@odoo/owl";
 import { todoPropShape, Todo } from "./todo";
-import { useAutofocus } from '../utils';
+import { useAutofocus } from "../utils";
 
 export class TodoList extends Component {
-    static template = "owl_playground.todo-list";
-    static components = { Todo };
-    static props = { todos: {type: Array, element: todoPropShape} };
-    
-    todos = useState(this.props.todos)
+  static template = "owl_playground.todo-list";
+  static components = { Todo };
+  static props = { todos: { type: Array, element: todoPropShape } };
 
-    setup() {
-        useAutofocus("todoInput");
-    }
+  todos = useState(this.props.todos);
 
-    toggleState(e) {
-        const todo = this.todos.find(it => it.id == e.target.value)
-        todo.done = !todo.done;
-    }
+  setup() {
+    useAutofocus("todoInput");
+  }
 
-    addTodo(e) {
-        if (e.keyCode === 13 && e.target.value?.length) {
-            this.todos.push({
-                id: (Math.max(...(this.todos.map(it => it.id)), 0)+1),
-                description: e.target.value,
-                done: false,
-            });
-        }
-    }
+  toggleState(e) {
+    const todo = this.todos.find((it) => it.id == e.target.value);
+    todo.done = !todo.done;
+  }
 
-    removeTodo(e) {
-        const index = this.todos.findIndex((it) => it.id == e.target.getAttribute('data-id'));
-        if (index >= 0) {
-            this.todos.splice(index, 1);
-        }
+  addTodo(e) {
+    if (e.keyCode === 13 && e.target.value?.length) {
+      this.todos.push({
+        id: Math.max(...this.todos.map((it) => it.id), 0) + 1,
+        description: e.target.value,
+        done: false,
+      });
     }
+  }
+
+  removeTodo(e) {
+    const index = this.todos.findIndex(
+      (it) => it.id == e.target.getAttribute("data-id")
+    );
+    if (index >= 0) {
+      this.todos.splice(index, 1);
+    }
+  }
 }

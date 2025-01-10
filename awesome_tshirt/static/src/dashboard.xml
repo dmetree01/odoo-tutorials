@@ -21,6 +21,7 @@
     </t>
 
     <t t-name="awesome_tshirt.clientaction.statistics" owl="1">
+        <h3>statistics</h3>
         <div class="d-flex flex-nowrap">
             <div t-foreach="keyToString" t-as="key" t-key="key" class="m-2">
                 <Card>
